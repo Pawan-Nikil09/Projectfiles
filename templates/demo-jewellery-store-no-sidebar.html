@@ -1,0 +1,370 @@
+﻿<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <title>{{ title }}</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="author" content="ThemeZaa">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <meta name="description" content="{{ description }}">
+        <!-- favicon icon -->
+        <link rel="shortcut icon" href="images/favicon.png">
+        <link rel="apple-touch-icon" href="images/apple-touch-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+        <!-- google fonts preconnect -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <!-- style sheets and font icons  -->
+        <link rel="stylesheet" href="css/vendors.min.css"/>
+        <link rel="stylesheet" href="css/icon.min.css"/>
+        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/responsive.css"/>
+        <link rel="stylesheet" href="demos/jewellery-store/jewellery-store.css" />
+    </head>
+    <body data-mobile-nav-style="classic">
+        <!-- start header -->
+        <header class="header-with-topbar">
+            <!-- start header top bar -->
+            <div class="header-top-bar top-bar-light bg-dark-gray disable-fixed md-border-bottom border-color-transparent-dark-very-light">
+                <div class="container-fluid">
+                    <div class="row h-40px align-items-center m-0">
+                        <div class="col-12 justify-content-center alt-font">
+                            <div class="fs-13 text-white text-uppercase">{{ topbar_message }}</div>
+                            <a href="{{ topbar_offer_link }}" class="fs-13 fw-500 text-base-color text-base-color-hover text-uppercase ms-5px"><i class="feather icon-feather-bookmark icon-small align-middle"></i> <span class="text-decoration-line-bottom">{{ topbar_offer_text }}</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end header top bar -->
+            <!-- start navigation -->
+            <nav class="navbar navbar-expand-lg header-light bg-white disable-fixed">
+                <div class="container-fluid">
+                    <div class="col-auto col-lg-5 menu-order position-static">
+                        <button class="navbar-toggler float-start" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-line"></span>
+                            <span class="navbar-toggler-line"></span>
+                            <span class="navbar-toggler-line"></span>
+                            <span class="navbar-toggler-line"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav"> 
+                            <ul class="navbar-nav alt-font"> 
+                                {% for item in nav_items %}
+                                    <li class="nav-item{% if item.submenu %} dropdown{% if item.mega_menu %} submenu{% endif %}{% endif %}">
+                                        <a href="{{ item.link }}" class="nav-link">{{ item.text }}</a>
+                                        {% if item.submenu %}
+                                            <i class="fa-solid fa-angle-down dropdown-toggle" id="navbarDropdownMenuLink{{ loop.index }}" role="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                            <div class="dropdown-menu{% if item.mega_menu %} submenu-content{% endif %}" aria-labelledby="navbarDropdownMenuLink{{ loop.index }}"> 
+                                                {% if item.mega_menu %}
+                                                    <div class="d-lg-flex mega-menu m-auto flex-column">
+                                                        <div class="row row-cols-1 row-cols-lg-5 mb-50px md-mb-20px">
+                                                            {% for category in item.submenu %}
+                                                                <div class="col md-mb-5px">
+                                                                    <ul>  
+                                                                        <li class="sub-title">{{ category.title }}</li>
+                                                                        {% for sub_item in category.items %}
+                                                                            <li><a href="{{ sub_item.link }}">{{ sub_item.text }}</a></li>
+                                                                        {% endfor %}
+                                                                    </ul>
+                                                                </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                        <div class="row row-cols-1 row-cols-md-2">
+                                                            {% for banner in item.banners %}
+                                                                <div class="col">
+                                                                    <a href="{{ banner.link }}"><img src="{{ banner.image }}" class="border-radius-4px w-100" alt=""></a>
+                                                                </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div> 
+                                                {% else %}
+                                                    <ul class="dropdown-menu">
+                                                        {% for sub_item in item.submenu %}
+                                                            <li><a href="{{ sub_item.link }}">{{ sub_item.text }}</a></li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 justify-content-end justify-content-lg-center">
+                        <a class="navbar-brand" href="{{ logo_link }}">
+                            <img src="{{ logo_image }}" data-at2x="{{ logo_image_2x }}" alt="" class="default-logo">
+                            <img src="{{ logo_image }}" data-at2x="{{ logo_image_2x }}" alt="" class="alt-logo">
+                            <img src="{{ logo_image }}" data-at2x="{{ logo_image_2x }}" alt="" class="mobile-logo"> 
+                        </a>
+                    </div>
+                    <div class="col-auto col-lg-5 justify-content-end ms-auto md-pe-0">
+                        <div class="header-icon">
+                            <div class="widget-text icon alt-font fw-500 d-none d-sm-flex">
+                                <a href="{{ wishlist_link }}">Wishlist</a>
+                            </div>
+                            <div class="header-account-icon icon alt-font">
+                                <div class="header-account dropdown"> 
+                                    <a href="javascript:void(0);" class="fw-500">
+                                        <i class="feather icon-feather-user d-inline-block d-sm-none fs-18"></i>
+                                        <span class="d-none d-sm-inline-block">My account</span>
+                                    </a>
+                                    <ul class="account-item-list">
+                                        {% for account_item in account_items %}
+                                            <li class="account-item"><a href="{{ account_item.link }}">{{ account_item.text }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div> 
+                            </div>
+                            <div class="header-search-icon icon">
+                                <a href="javascript:void(0)" class="search-form-icon header-search-form xs-ps-10px"><i class="feather icon-feather-search"></i></a> 
+                                <div class="search-form-wrapper">
+                                    <button title="Close" type="button" class="search-close alt-font">×</button>
+                                    <form id="search-form" role="search" method="get" class="search-form text-left" action="{{ search_action }}">
+                                        <div class="search-form-box">
+                                            <h2 class="text-dark-gray text-center mb-5 alt-font fw-600 ls-minus-2px">What are you looking for?</h2>
+                                            <input class="search-input alt-font" id="search-form-input5e219ef164995" placeholder="Enter your keywords..." name="s" value="" type="text" autocomplete="off">
+                                            <button type="submit" class="search-button">
+                                                <i class="feather icon-feather-search" aria-hidden="true"></i> 
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="header-cart-icon icon">
+                                <div class="header-cart dropdown">
+                                    <a href="javascript:void(0);"><i class="feather icon-feather-shopping-bag"></i><span class="cart-count alt-font text-da">{{ cart_count }}</span></a> 
+                                    <ul class="cart-item-list">
+                                        {% for cart_item in cart_items %}
+                                            <li class="cart-item align-items-center">
+                                                <a href="javascript:void(0);" class="alt-font close">×</a>
+                                                <div class="product-image">
+                                                    <a href="{{ cart_item.link }}"><img src="{{ cart_item.image }}" class="cart-thumb" alt=""></a>
+                                                </div>
+                                                <div class="product-detail alt-font">
+                                                    <a href="{{ cart_item.link }}">{{ cart_item.name }}</a>
+                                                    <span class="item-ammount">{{ cart_item.price }}</span> 
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                        <li class="cart-total">
+                                            <div class="alt-font mb-15px"><span class="w-50">Subtotal:</span><span class="w-50 text-end fw-600">{{ cart_subtotal }}</span></div>
+                                            <a href="{{ cart_link }}" class="btn btn-large btn-transparent-base-color border-color-extra-medium-gray btn-round-edge">View cart</a>
+                                            <a href="{{ checkout_link }}" class="btn btn-large btn-dark-gray btn-box-shadow btn-round-edge">Checkout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <!-- end header -->
+        <!-- start page title -->
+        <section class="half-section top-space-margin cover-background" style="background-image: url({{ page_title_background }})">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-12 text-center position-relative page-title-extra-large">
+                        <div class="d-flex flex-column extra-very-small-screen" data-anime='{ "el": "childs", "translateY": [0, 0], "opacity": [0,1], "duration": 300, "delay": 0, "staggervalue": 100, "easing": "easeOutQuad" }'>
+                            <div class="mt-auto">
+                                <h1 class="fw-500 text-dark-gray alt-font mb-0 ls-minus-2px">{{ page_title }}</h1>
+                            </div>
+                            <div class="fs-16 fw-500 alt-font text-dark-gray justify-content-center breadcrumb breadcrumb-style-01 mt-auto">
+                                <ul>
+                                    {% for breadcrumb in breadcrumbs %}
+                                        <li><a href="{{ breadcrumb.link }}" class="text-dark-gray text-medium-gray-hover">{{ breadcrumb.text }}</a></li>
+                                    {% endfor %}
+                                    <li>{{ page_title }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> 
+        <!-- end page title -->
+        <!-- start section -->
+        <section class="ps-6 pe-6 lg-ps-3 lg-pe-3 sm-ps-0 sm-pe-0">
+            <div class="container-fluid">
+                <div class="row"> 
+                    <div class="col-12 md-mb-60px">
+                        <div class="toolbar-wrapper border-bottom border-color-extra-medium-gray d-flex flex-column flex-md-row align-items-center w-100 mb-40px md-mb-30px pb-15px" data-anime='{ "translateY": [0, 0], "opacity": [0,1], "duration": 600, "delay":50, "staggervalue": 150, "easing": "easeOutQuad" }'>
+                            <div class="sm-mb-10px">
+                                {% for layout in layouts %}
+                                    <a href="{{ layout.link }}" class="me-10px"><img src="{{ layout.icon }}" class="opacity-5" alt="" /></a>
+                                {% endfor %}
+                            </div>
+                            <div class="ms-20px sm-ms-0">{{ results_info }}</div>
+                            <div class="mx-auto me-md-0">
+                                <select class="fs-18 form-select border-0 background-position-right" aria-label="Default sorting">
+                                    {% for sort_option in sort_options %}
+                                        <option value="{{ sort_option.value }}" {% if sort_option.selected %}selected{% endif %}>{{ sort_option.text }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <ul class="shop-modern shop-wrapper grid-loading grid grid-4col xxl-grid-4col xl-grid-3col lg-grid-3col md-grid-2col sm-grid-2col xs-grid-1col gutter-extra-large text-center" data-anime='{ "el": "childs", "translateY": [15, 0], "opacity": [0,1], "duration": 300, "delay": 0, "staggervalue": 100, "easing": "easeOutQuad" }'>
+                            <li class="grid-sizer"></li>
+                            {% for product in products %}
+                                <li class="grid-item">
+                                    <div class="shop-box mb-10px">
+                                        <div class="shop-image mb-25px">
+                                            <a href="{{ product.link }}">
+                                                <img src="{{ product.image }}" alt=""> 
+                                                {% if product.label %}
+                                                    <span class="lable {{ product.label_class }}">{{ product.label }}</span>
+                                                {% endif %}
+                                            </a>
+                                            <div class="shop-buttons-wrap">
+                                                <a href="{{ product.link }}" class="alt-font btn btn-small btn-box-shadow btn-dark-gray btn-round-edge left-icon add-to-cart">
+                                                    <i class="feather icon-feather-shopping-bag"></i><span class="quick-view-text button-text">Add to cart</span>
+                                                </a>
+                                            </div>
+                                            <div class="shop-hover d-flex justify-content-center"> 
+                                                <ul>
+                                                    <li>
+                                                        <a href="{{ product.wishlist_link }}" class="bg-white w-40px h-40px text-dark-gray d-flex align-items-center justify-content-center rounded-circle ms-5px me-5px box-shadow-large" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="feather icon-feather-heart fs-16"></i></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{ product.quick_shop_link }}" class="bg-white w-40px h-40px text-dark-gray d-flex align-items-center justify-content-center rounded-circle ms-5px me-5px box-shadow-large" data-bs-toggle="tooltip" data-bs-placement="left" title="Quick shop"><i class="feather icon-feather-eye fs-16"></i></a>
+                                                    </li>
+                                                </ul> 
+                                            </div>
+                                        </div>
+                                        <div class="shop-footer text-center">
+                                            <a href="{{ product.link }}" class="text-dark-gray fs-19 fw-500">{{ product.name }}</a>
+                                            <div class="price">
+                                                {% if product.original_price %}
+                                                    <del>{{ product.original_price }}</del>
+                                                {% endif %}
+                                                {{ product.price }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <div class="w-100 d-flex mt-4 justify-content-center" data-anime='{ "translateY": [0, 0], "opacity": [0,1], "duration": 600, "delay":100, "staggervalue": 150, "easing": "easeOutQuad" }'>
+                            <ul class="pagination pagination-style-01 fs-14 fw-500 mb-0">
+                                <li class="page-item"><a class="page-link" href="{{ pagination.prev }}"><i class="feather icon-feather-arrow-left fs-18 d-xs-none"></i></a></li>
+                                {% for page in pagination.pages %}
+                                    <li class="page-item{% if page.active %} active{% endif %}"><a class="page-link" href="{{ page.link }}">{{ page.number }}</a></li>
+                                {% endfor %}
+                                <li class="page-item"><a class="page-link" href="{{ pagination.next }}"><i class="feather icon-feather-arrow-right fs-18 d-xs-none"></i></a></li>
+                            </ul>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </section>
+        <!-- end section -->
+        <!-- start section -->
+        <section class="p-0 position-relative">
+            <div class="container-fluid p-0">
+                <div class="row row-cols-3 row-cols-md-6 instagram-follow-api position-relative g-0">
+                    {% for insta_post in instagram_posts %}
+                        <div class="col instafeed-grid">
+                            <figure class="border-radius-0px"><a href="{{ insta_post.link }}" target="_blank"><img src="{{ insta_post.image }}" class="insta-image" alt=""><span class="insta-icon"><i class="fa-brands fa-instagram"></i></span></a></figure>
+                        </div>
+                    {% endfor %}
+                    <a href="{{ instagram_link }}" target="_blank" class="instagram-button alt-font absolute-middle-center bg-white w-120px h-120px md-w-90px md-h-90px text-dark-gray border-radius-100px box-shadow-extra-large d-flex align-items-center justify-content-center"><i class="feather icon-feather-instagram icon-medium"></i></a>
+                </div> 
+            </div>
+        </section>
+        <!-- end section -->
+        <!-- start footer -->
+        <footer class="footer-dark bg-seashell-white pb-0 cover-background" style="background-image: url('{{ footer_background }}');">
+            <div class="container">
+                <div class="row justify-content-center mb-4 sm-mb-35px">
+                    <!-- start footer column -->
+                    <div class="col-6 col-lg-3 last-paragraph-no-margin order-sm-1 md-mb-50px xs-mb-30px">
+                        <a href="{{ footer_logo_link }}" class="footer-logo d-inline-block mb-20px"><img src="{{ footer_logo }}" data-at2x="{{ footer_logo_2x }}" alt=""></a>
+                        <span class="lh-22 alt-font fwaglie fw-500 text-dark-gray d-block w-80 lg-w-100 mb-15px">{{ footer_support_text }}</span>
+                        <div class="fs-16 text-brown"><i class="feather icon-feather-phone-call icon-small me-10px xs-me-5px text-dark-gray"></i><a href="tel:{{ footer_phone }}">{{ footer_phone }}</a></div>
+                        <div class="fs-16"><i class="feather icon-feather-mail icon-small me-10px xs-me-5px text-dark-gray"></i><a href="mailto:{{ footer_email }}">{{ footer_email }}</a></div>
+                    </div>
+                    <!-- end footer column -->
+                    {% for column in footer_columns %}
+                        <div class="col-6 col-lg-2 col-sm-4 xs-mb-30px order-sm-3 order-lg-2">
+                            <span class="alt-font fw-500 text-dark-gray d-block mb-5px">{{ column.title }}</span>
+                            <ul class="fs-16">
+                                {% for item in column.items %}
+                                    <li><a href="{{ item.link }}">{{ item.text }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endfor %}
+                    <!-- start footer column -->
+                    <div class="col-lg-3 col-sm-6 ps-30px sm-ps-15px md-mb-50px xs-mb-0 order-sm-2 order-lg-5 text-center text-sm-start">
+                        <span class="alt-font fw-500 text-dark-gray d-block mb-10px">Connect with us</span>
+                        <div class="elements-social social-icon-style-09">
+                            <ul class="small-icon dark mb-20px">
+                                {% for social in social_links %}
+                                    <li><a class="{{ social.class }}" href="{{ social.link }}" target="_blank"><i class="{{ social.icon }}"></i><span></span></a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <span class="alt-font fw-500 text-dark-gray d-block mb-10px">Secure payment</span>
+                        <div class="footer-card d-block d-sm-flex align-items-center">
+                            {% for payment in payment_methods %}
+                                <a href="{{ payment.link }}" class="d-inline-block me-5px align-middle"><img src="{{ payment.image }}" class="h-25px" alt=""></a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- end footer column -->
+                </div>
+                <div class="row justify-content-center align-items-center">
+                    <!-- start divider -->
+                    <div class="col-12">
+                        <div class="divider-style-03 divider-style-03-01 border-color-transparent-dark-very-light"></div>
+                    </div>
+                    <!-- end divider -->
+                    <!-- start copyright -->
+                    <div class="col-md-6 pt-20px pb-20px sm-pt-0 fs-16 order-2 order-md-1 text-center text-md-start last-paragraph-no-margin">
+                        <p>{{ footer_copyright }}</p>
+                    </div>
+                    <!-- end copyright -->
+                    <!-- start footer menu -->
+                    <div class="col-md-6 pt-20px pb-20px sm-pb-10px fs-16 order-1 order-md-2 text-center text-md-end">
+                        <ul class="footer-navbar xs-lh-normal">
+                            {% for link in footer_links %}
+                                <li><a href="{{ link.link }}" class="nav-link">{{ link.text }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <!-- end footer menu -->
+                </div>
+            </div> 
+        </footer>
+        <!-- end footer -->
+        <!-- start cookie message -->
+        <div id="cookies-model" class="cookie-message bg-dark-gray border-radius-8px"> 
+            <div class="cookie-description fs-14 text-white mb-20px lh-22">{{ cookie_message }}</div>   
+            <div class="cookie-btn">
+                <a href="{{ cookie_policy_link }}" class="btn btn-transparent-white border-1 border-color-transparent-white-light btn-very-small btn-switch-text btn-rounded w-100 mb-15px" aria-label="btn">
+                    <span>
+                        <span class="btn-double-text" data-text="Cookie policy">Cookie policy</span> 
+                    </span>
+                </a> 
+                <a href="#" class="btn btn-white btn-very-small btn-switch-text btn-box-shadow accept_cookies_btn btn-rounded w-100" data-accept-btn aria-label="text">
+                    <span>
+                        <span class="btn-double-text" data-text="Allow cookies">Allow cookies</span> 
+                    </span>
+                </a>
+            </div> 
+        </div>
+        <!-- end cookie message -->
+        <!-- start scroll progress -->
+        <div class="scroll-progress d-none d-xxl-block">
+            <a href="#" class="scroll-top" aria-label="scroll">
+                <span class="scroll-text">Scroll</span><span class="scroll-line"><span class="scroll-point"></span></span>
+            </a>
+        </div>
+        <!-- end scroll progress -->
+        <!-- javascript libraries -->
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/vendors.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+    </body>
+</html>
